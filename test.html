@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Full Viewport Screens</title>
+    <style>
+        .screen {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+         /*rotate text animation*/
+        .rotate {
+            font-size: 5rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            animation: rotate 5s linear;
+        }
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="screen bg-primary text-white">
+    <h1>Screen 1</h1>
+</div>
+<div class="screen bg-secondary text-white">
+    <h1>Screen 2</h1>
+</div>
+<div id="rotate" class="screen bg-success text-white">
+    <h1>Screen 3</h1>
+</div>
+<div class="screen bg-danger text-white">
+    <h1>Screen 4</h1>
+</div>
+
+<script>
+    var target = document.querySelector("#rotate");
+    var options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5
+    };
+    var observer = new IntersectionObserver(callback, options);
+    observer.observe(target);
+
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Assign rotate class to h1 element of screen 3
+                entry.target.querySelector("h1").classList.add("rotate");
+                // observer.disconnect();
+            } else {
+                // Remove rotate class from h1 element of screen 3
+                entry.target.querySelector("h1").classList.remove("rotate");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
